@@ -2,7 +2,9 @@ package com.tpe.controller;
 
 import com.tpe.config.HibernateUtils;
 import com.tpe.repository.HotelRepository;
+import com.tpe.repository.RoomRepository;
 import com.tpe.service.HotelService;
+import com.tpe.service.RoomService;
 
 import java.util.Scanner;
 
@@ -14,6 +16,9 @@ public class HotelManagementSystem {
 
         HotelRepository hotelRepository = new HotelRepository();
         HotelService hotelService = new HotelService(hotelRepository);
+        RoomRepository roomRepository = new RoomRepository();
+
+        RoomService roomService = new RoomService(hotelService,roomRepository);
 
 
         boolean exit = false;
@@ -36,7 +41,7 @@ public class HotelManagementSystem {
                 displayHotelOperationsMenu(hotelService);
                 break;
             case 2:
-                displayRoomOperationsMenu();
+                displayRoomOperationsMenu(roomService);
                 break;
             case 3:
                 displayGuestOPerationsMenu();
@@ -109,7 +114,7 @@ public class HotelManagementSystem {
 
 
     //room operations
-    private static void displayRoomOperationsMenu() {
+    private static void displayRoomOperationsMenu(RoomService roomService) {
 
         System.out.println("Room Operation Menu");
         boolean exit = false;
@@ -127,12 +132,18 @@ public class HotelManagementSystem {
 
             switch (choice) {
                 case 1:
+                    roomService.saveRoom();
                     break;
                 case 2:
+                    System.out.println("Enter room ID : ");
+                    Long roomId = scanner.nextLong();
+                    scanner.nextLine();
+                    roomService.findRoomById(roomId);
                     break;
                 case 3:
                     break;
                 case 4:
+                    roomService.getAllRooms();
                     break;
                 case 0:
                     exit = true;
