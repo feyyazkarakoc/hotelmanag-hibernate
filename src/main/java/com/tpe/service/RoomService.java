@@ -88,4 +88,22 @@ public class RoomService {
             System.out.println("Room list is empty.");
         }
     }
+
+    public void deleteRoomById(Long id) {
+        Room existingRoom = findRoomById(id);
+        if (existingRoom != null){
+            System.out.println(existingRoom);
+            System.out.println("Are you sure to delete : ");
+            System.out.println("Please answer with Y or N");
+            String select = scanner.nextLine();
+
+            if (select.equalsIgnoreCase("Y")){
+                roomRepository.deleteRoom(existingRoom);
+                System.out.println("Room is deleted succesfully...");
+            }else {
+                System.out.println("Delete operation is CANCELLED!!!");
+            }
+        }
+
+    }
 }

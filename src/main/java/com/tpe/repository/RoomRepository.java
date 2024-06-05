@@ -70,4 +70,18 @@ public class RoomRepository {
 
         }
     }
+
+    public void deleteRoom(Room room) {
+        try {
+            session = HibernateUtils.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            session.delete(room);
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }finally {
+            HibernateUtils.closeSession(session);
+        }
+
+    }
 }

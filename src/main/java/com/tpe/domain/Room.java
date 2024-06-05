@@ -24,6 +24,8 @@ public class Room {
     @JoinColumn(name = "hotel_id",nullable = false)
     private Hotel hotel;
 
+
+    @OneToMany(mappedBy = "room",orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
     public Room() {
