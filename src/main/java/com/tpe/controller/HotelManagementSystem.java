@@ -256,6 +256,7 @@ public class HotelManagementSystem {
                     reservationService.findReservationById(reservationId);
                     break;
                 case 3:
+                    reservationService.findAllReservations();
                     break;
                 case 4:
                     break;

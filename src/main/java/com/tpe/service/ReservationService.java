@@ -5,6 +5,8 @@ import com.tpe.exceptions.ReservationNotFoundException;
 import com.tpe.repository.GuestRepository;
 import com.tpe.repository.ReservationRepository;
 
+import java.util.List;
+
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
@@ -35,5 +37,17 @@ public class ReservationService {
         return null;
 
 
+    }
+
+    public void findAllReservations() {
+        List<Reservation> reservations = reservationRepository.findAll();
+
+        if (!reservations.isEmpty()){
+            for (Reservation reservation : reservations){
+                System.out.println(reservation);
+            }
+        }else {
+            System.out.println("There is no reservations...");
+        }
     }
 }
