@@ -18,7 +18,7 @@ public class Hotel {
     @Column(nullable = false)
     private String location;
 
-    @OneToMany(mappedBy = "hotel",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Room> rooms = new ArrayList<>();
 
 

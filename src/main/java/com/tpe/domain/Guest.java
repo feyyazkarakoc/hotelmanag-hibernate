@@ -11,6 +11,7 @@ public class Guest {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -19,7 +20,7 @@ public class Guest {
 
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "guest",orphanRemoval = true)
+    @OneToMany(mappedBy = "guest", orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
 
@@ -28,7 +29,7 @@ public class Guest {
 
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.createDate = LocalDateTime.now();
     }
 

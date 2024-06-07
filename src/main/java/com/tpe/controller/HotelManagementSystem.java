@@ -29,7 +29,7 @@ public class HotelManagementSystem {
         GuestService guestService = new GuestService(guestRepository);
 
         ReservationRepository reservationRepository = new ReservationRepository();
-        ReservationService reservationService = new ReservationService(reservationRepository);
+        ReservationService reservationService = new ReservationService(reservationRepository, guestService, roomService);
 
 
         boolean exit = false;
@@ -42,32 +42,34 @@ public class HotelManagementSystem {
             System.out.println("4.Reservation Operations");
             System.out.println("0. Exit");
             System.out.println("Enter your choice : ");
-        }
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
 
-        switch (choice) {
-            case 1:
-                displayHotelOperationsMenu(hotelService);
-                break;
-            case 2:
-                displayRoomOperationsMenu(roomService);
-                break;
-            case 3:
-                displayGuestOPerationsMenu(guestService);
-                break;
-            case 4:
-                displayReservationOperationsMenu(reservationService);
-                break;
-            case 0:
-                exit = true;
-                System.out.println("Good Bye...");
-                HibernateUtils.closeSessionFactory();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    displayHotelOperationsMenu(hotelService);
+                    break;
+                case 2:
+                    displayRoomOperationsMenu(roomService);
+                    break;
+                case 3:
+                    displayGuestOPerationsMenu(guestService);
+                    break;
+                case 4:
+                    displayReservationOperationsMenu(reservationService);
+                    break;
+                case 0:
+                    exit = true;
+                    System.out.println("Good Bye...");
+                    HibernateUtils.closeSessionFactory();
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+
+            }
 
         }
     }
@@ -203,6 +205,7 @@ public class HotelManagementSystem {
 
             switch (choice) {
                 case 1:
+                    guestService.saveGuest();
                     break;
                 case 2:
                     System.out.println("Enter the guest ID : ");
@@ -211,6 +214,10 @@ public class HotelManagementSystem {
                     guestService.findGuestById(guestId);
                     break;
                 case 3:
+                    System.out.println("Enter the guest ID : ");
+                    Long guestIdToDelete = scanner.nextLong();
+                    scanner.nextLine();
+                    guestService.deleteGuestById(guestIdToDelete);
                     break;
                 case 4:
                     guestService.findAllGuest();
@@ -236,18 +243,19 @@ public class HotelManagementSystem {
         boolean exit = false;
         while (!exit) {
             System.out.println("==== Reservation Operations ====");
-            System.out.println("1. Add a new reservatio");
+            System.out.println("1. Add a New Reservation");
             System.out.println("2. Find Reservation By ID");
             System.out.println("3. Find All Reservations");
             System.out.println("4. Delete Reservation By ID");
             System.out.println("0. Return to Main Menu");
-            System.out.println("Enter your choice: ");
+            System.out.println("Enter Your Choice: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
                 case 1:
+                    reservationService.createReservation();
                     break;
                 case 2:
                     System.out.println("Enter the reservation ID : ");
@@ -259,6 +267,10 @@ public class HotelManagementSystem {
                     reservationService.findAllReservations();
                     break;
                 case 4:
+                    System.out.println("Enter the reservation ID : ");
+                    Long reservationIdToDelete = scanner.nextLong();
+                    scanner.nextLine();
+                    reservationService.deleteReservationById(reservationIdToDelete);
                     break;
                 case 0:
                     exit = true;

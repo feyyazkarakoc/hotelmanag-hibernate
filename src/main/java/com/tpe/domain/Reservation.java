@@ -10,6 +10,7 @@ public class Reservation {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -18,7 +19,7 @@ public class Reservation {
     @Column(nullable = false)
     private LocalDate checkOutDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Guest guest;
 

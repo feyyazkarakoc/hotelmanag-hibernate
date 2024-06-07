@@ -14,7 +14,7 @@ public class RoomRepository {
     private Session session;
 
 
-    public void save(Room room){
+    public void save(Room room) {
         try {
             session = HibernateUtils.getSessionFactory().openSession();
             Transaction transaction = session.beginTransaction();
@@ -22,27 +22,26 @@ public class RoomRepository {
             transaction.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             HibernateUtils.closeSession(session);
         }
     }
 
-    public Room findById(Long roomId){
+    public Room findById(Long roomId) {
 
         try {
             session = HibernateUtils.getSessionFactory().openSession();
-            return session.get(Room.class,roomId);
+            return session.get(Room.class, roomId);
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             HibernateUtils.closeSession(session);
         }
         return null;
     }
 
 
-
-    public List<Room>  findAll(){
+    public List<Room> findAll() {
 
         try {
             session = HibernateUtils.getSessionFactory().openSession();
@@ -63,9 +62,9 @@ public class RoomRepository {
             List<Room> rooms = session.createQuery("FROM Room", Room.class).getResultList();
             return rooms;
         } catch (HibernateException e) {
-           e.printStackTrace();
+            e.printStackTrace();
             return null;
-        }finally {
+        } finally {
             HibernateUtils.closeSession(session);
 
         }
@@ -79,7 +78,7 @@ public class RoomRepository {
             transaction.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             HibernateUtils.closeSession(session);
         }
 

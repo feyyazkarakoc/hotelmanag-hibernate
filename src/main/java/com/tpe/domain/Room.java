@@ -17,15 +17,15 @@ public class Room {
 
 
     @Column(nullable = false)
-    private  Integer capasity;
+    private Integer capasity;
 
 
     @ManyToOne
-    @JoinColumn(name = "hotel_id",nullable = false)
+    @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
 
-    @OneToMany(mappedBy = "room",orphanRemoval = true)
+    @OneToMany(mappedBy = "room", orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
     public Room() {

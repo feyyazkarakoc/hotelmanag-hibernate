@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class RoomService {
 
     private Scanner scanner = new Scanner(System.in);
-    private final HotelService  hotelService;
+    private final HotelService hotelService;
 
     private final RoomRepository roomRepository;
 
@@ -36,7 +36,6 @@ public class RoomService {
         scanner.nextLine();
 
 
-
         System.out.println("Enter hotel id : ");
         Long hotelId = scanner.nextLong();
         scanner.nextLine();
@@ -49,9 +48,9 @@ public class RoomService {
 
             roomRepository.save(room);
 
-            System.out.println("Room is saved successfully.Room id : "+room.getId());
+            System.out.println("Room is saved successfully.Room id : " + room.getId());
 
-        }else {
+        } else {
             System.out.println("Room could not saved!!!");
         }
 
@@ -60,14 +59,14 @@ public class RoomService {
     public Room findRoomById(Long roomId) {
 
         try {
-            Room foundRoom  = roomRepository.findById(roomId);
-            if (foundRoom != null){
+            Room foundRoom = roomRepository.findById(roomId);
+            if (foundRoom != null) {
                 System.out.println("---------------------------------------");
                 System.out.println(foundRoom);
                 System.out.println("---------------------------------------");
                 return foundRoom;
-            }else {
-                throw new RoomNotFoundException("Room found not by ID : "+roomId);
+            } else {
+                throw new RoomNotFoundException("Room found not by ID : " + roomId);
             }
         } catch (RoomNotFoundException e) {
             System.out.println(e.getMessage());
@@ -77,30 +76,30 @@ public class RoomService {
 
     public void getAllRooms() {
 
-        List<Room> roomList= roomRepository.getAll();
-        if (!roomList.isEmpty()){
+        List<Room> roomList = roomRepository.getAll();
+        if (!roomList.isEmpty()) {
             System.out.println("------------------ ALL ROOMS ------------------");
-            for (Room room : roomList){
+            for (Room room : roomList) {
                 System.out.println(room);
             }
             System.out.println("-----------------------------------------------");
-        }else {
+        } else {
             System.out.println("Room list is empty.");
         }
     }
 
     public void deleteRoomById(Long id) {
         Room existingRoom = findRoomById(id);
-        if (existingRoom != null){
+        if (existingRoom != null) {
             System.out.println(existingRoom);
             System.out.println("Are you sure to delete : ");
             System.out.println("Please answer with Y or N");
             String select = scanner.nextLine();
 
-            if (select.equalsIgnoreCase("Y")){
+            if (select.equalsIgnoreCase("Y")) {
                 roomRepository.deleteRoom(existingRoom);
                 System.out.println("Room is deleted succesfully...");
-            }else {
+            } else {
                 System.out.println("Delete operation is CANCELLED!!!");
             }
         }

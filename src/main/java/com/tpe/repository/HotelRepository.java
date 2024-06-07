@@ -12,7 +12,7 @@ public class HotelRepository {
 
     private Session session;
 
-    public void save(Hotel hotel){
+    public void save(Hotel hotel) {
         try {
             session = HibernateUtils.getSessionFactory().openSession();
             Transaction transaction = session.beginTransaction();
@@ -28,15 +28,15 @@ public class HotelRepository {
     }
 
 
-    public Hotel findById(Long id){
+    public Hotel findById(Long id) {
 
 
         try {
             session = HibernateUtils.getSessionFactory().openSession();
-            return session.get(Hotel.class,id);
+            return session.get(Hotel.class, id);
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             HibernateUtils.closeSession(session);
         }
 
@@ -44,10 +44,10 @@ public class HotelRepository {
 
     }
 
-    public List<Hotel> findAll(){
+    public List<Hotel> findAll() {
         try {
             session = HibernateUtils.getSessionFactory().openSession();
-            List<Hotel> hotelList =  session.createQuery("FROM Hotel").getResultList();
+            List<Hotel> hotelList = session.createQuery("FROM Hotel").getResultList();
             return hotelList;
         } catch (HibernateException e) {
             e.getMessage();
@@ -64,13 +64,23 @@ public class HotelRepository {
             transaction.commit();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             HibernateUtils.closeSession(session);
         }
     }
 
 
-    public void updateHotel(Hotel existingHotel) {
+    public void updateHotel(Hotel hotel) {
+        try {
+            session = HibernateUtils.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            session.update(hotel);
+            transaction.commit();
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            HibernateUtils.closeSession(session);
+        }
 
     }
 }
